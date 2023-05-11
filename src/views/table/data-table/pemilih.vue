@@ -1,9 +1,11 @@
 <template>
   <div class="app-container">
-    <h1>Data Pemilih</h1>
+    <h1>Data Desa</h1>
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="Title" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.importance" placeholder="Imp" clearable style="width: 90px" class="filter-item">
+      <el-input v-model="listQuery.title" placeholder="Desa" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.title" placeholder="Kelurahan" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.title" placeholder="Kabupaten" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <!-- <el-select v-model="listQuery.importance" placeholder="Imp" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select>
       <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
@@ -11,7 +13,7 @@
       </el-select>
       <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select>
+      </el-select> -->
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         Search
       </el-button>
@@ -21,9 +23,9 @@
       <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
         Export
       </el-button>
-      <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left:15px;" @change="tableKey=tableKey+1">
+      <!-- <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left:15px;" @change="tableKey=tableKey+1">
         reviewer
-      </el-checkbox>
+      </el-checkbox> -->
     </div>
 
     <el-table
@@ -41,28 +43,29 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Date" width="150px" align="center">
+      <el-table-column label="Kabupaten/Kota" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <!-- <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span> -->
+          <span>{{ row.kabupaten }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Title" min-width="150px">
+      <el-table-column label="Kecamatan/Kelurahan" min-width="150px">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <el-tag>{{ row.type | typeFilter }}</el-tag>
+          <span>{{ row.kecamatan }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110px" align="center">
+      <el-table-column label="Desa" width="110px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
+          <span>{{ row.desa }}</span>
         </template>
       </el-table-column>
-      <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
+      <el-table-column label="Jumlah Penduduk" width="150px" align="center" style="white-space: nowrap;">
         <template slot-scope="{row}">
-          <span style="color:red;">{{ row.reviewer }}</span>
+          <span>{{ row.jumlah_penduduk }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Imp" width="80px">
+      <!-- <el-table-column label="Imp" width="80px">
         <template slot-scope="{row}">
           <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />
         </template>
@@ -79,17 +82,17 @@
             {{ row.status }}
           </el-tag>
         </template>
-      </el-table-column>
-      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
+      </el-table-column> -->
+      <el-table-column label="Actions" align="center" width="300" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
           </el-button>
-          <el-button v-if="row.status!='published'" size="mini" type="success" @click="handleModifyStatus(row,'published')">
+          <!-- <el-button v-if="row.status!='published'" size="mini" type="success" @click="handleModifyStatus(row,'published')">
             Publish
-          </el-button>
+          </el-button> -->
           <el-button v-if="row.status!='draft'" size="mini" @click="handleModifyStatus(row,'draft')">
-            Draft
+            View
           </el-button>
           <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
             Delete
@@ -148,10 +151,11 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { fetchPv, createArticle, updateArticle } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { kecamatan, kabupaten, desa, jumlah_penduduk } from '../../../../data.js'
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -233,15 +237,21 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+      const arr = Array(6).fill().map((_, i) => ({ id: i + 1, kabupaten: kabupaten[i], kecamatan: kecamatan[i], desa: desa[i], jumlah_penduduk: jumlah_penduduk[i] }))
+      this.list = arr
+      this.total = 6
 
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
-      })
+      console.log(this.list, arr)
+
+      // fetchList(this.listQuery).then(response => {
+      //   this.list = response.data.items
+      //   this.total = response.data.total
+
+      //   // Just to simulate the time of the request
+      // })
+      setTimeout(() => {
+        this.listLoading = false
+      }, 1.5 * 1000)
     },
     handleFilter() {
       this.listQuery.page = 1

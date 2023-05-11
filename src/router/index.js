@@ -148,6 +148,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/data-pemilih',
+    component: Layout,
+    redirect: '/data-pemilih/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/table/data-table/pemilih'),
+        name: 'Data Pemilih',
+        meta: { title: 'Data Pemilih', icon: 'peoples', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/data-desa',
     component: Layout,
     redirect: '/data-desa/index',

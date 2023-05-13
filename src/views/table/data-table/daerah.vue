@@ -1,27 +1,17 @@
 <template>
   <div class="app-container">
-    <h1>Data Pemilih</h1>
+    <h1>Data Daerah</h1>
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="Nama" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.importance" placeholder="Author" clearable style="width: 200px; margin-right: 10px;" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
-      <el-select v-model="listQuery.importance" placeholder="Coblos" clearable style="width: 200px; margin-right: 10px;" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
       <el-input v-model="listQuery.title" placeholder="Desa" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.title" placeholder="Kelurahan" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.title" placeholder="Kabupaten" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.importance" placeholder="RW" clearable style="width: 100px; margin-right: 10px;" class="filter-item">
+      <!-- <el-select v-model="listQuery.importance" placeholder="Imp" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.importance" placeholder="RT" clearable style="width: 100px; margin-right: 10px;" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
-      <!-- <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
+      <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
         <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-      </el-select> -->
-      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
+      </el-select>
+      <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
@@ -53,53 +43,26 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Coblos" min-width="150px" align="center">
+      <el-table-column label="Kabupaten/Kota" width="150px" align="center">
         <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <span>{{ row.coblos }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" min-width="150px" align="center">
-        <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <span>{{ row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Nama" min-width="150px">
-        <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <span>{{ row.nama }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="No Telpon" width="120px" align="center">
-        <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <span>{{ row.no_telpon }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Kabupaten/Kota" width="130px" align="center">
-        <template slot-scope="{row}">
+          <!-- <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span> -->
           <span>{{ row.kabupaten }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Kecamatan/Kelurahan" width="130px" align="center">
+      <el-table-column label="Kecamatan/Kelurahan" min-width="150px">
         <template slot-scope="{row}">
+          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
           <span>{{ row.kecamatan }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Desa" width="130px" align="center">
+      <el-table-column label="Desa" width="110px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.desa }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="RW" width="80px" align="center" style="white-space: nowrap;">
+      <el-table-column label="Jumlah Penduduk" width="150px" align="center" style="white-space: nowrap;">
         <template slot-scope="{row}">
-          <span>{{ row.rw }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="RT" width="80px" align="center" style="white-space: nowrap;">
-        <template slot-scope="{row}">
-          <span>{{ row.rw }}</span>
+          <span>{{ row.jumlah_penduduk }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column label="Imp" width="80px">
@@ -192,7 +155,7 @@ import { fetchPv, createArticle, updateArticle } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { kecamatan, kabupaten, desa, rw, rt, nama, no_telpon } from '../../../../data.js'
+import { kecamatan, kabupaten, desa, jumlah_penduduk } from '../../../../data.js'
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -274,7 +237,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      const arr = Array(6).fill().map((_, i) => ({ id: i + 1, kabupaten: kabupaten[i], kecamatan: kecamatan[i], desa: desa[i], rw: rw[i], rt: rt[i], nama: nama[i], no_telpon: no_telpon[i] }))
+      const arr = Array(6).fill().map((_, i) => ({ id: i + 1, kabupaten: kabupaten[i], kecamatan: kecamatan[i], desa: desa[i], jumlah_penduduk: jumlah_penduduk[i] }))
       this.list = arr
       this.total = 6
 

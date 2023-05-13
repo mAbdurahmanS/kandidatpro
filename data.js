@@ -26,6 +26,24 @@ export const desa = [
   "Cikampek Timur"
 ]
 
+export const rw = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6"
+]
+
+export const rt = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6"
+]
+
 export const jumlah_penduduk = [
   "13,251",
   "15,223",
@@ -33,5 +51,23 @@ export const jumlah_penduduk = [
   "512,242",
   "142,312",
   "142,312"
+]
+
+export const nama = [
+  "Muhammad",
+  "Abdurahman",
+  "Salsabil",
+  "Zaky",
+  "Fawwaz",
+  "Faza"
+]
+
+export const no_telpon = [
+  "85155426763",
+  "85155426763",
+  "85155426763",
+  "85155426763",
+  "85155426763",
+  "85155426763"
 ]
 

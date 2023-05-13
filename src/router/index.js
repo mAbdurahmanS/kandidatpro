@@ -134,19 +134,19 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/data-masyarakat',
-    component: Layout,
-    redirect: '/data-masyarakat/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/table/data-table/masyarakat'),
-        name: 'Data Masyarakat',
-        meta: { title: 'Data Masyarakat', icon: 'peoples', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/data-masyarakat',
+  //   component: Layout,
+  //   redirect: '/data-masyarakat/index',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/table/data-table/masyarakat'),
+  //       name: 'Data Masyarakat',
+  //       meta: { title: 'Data Masyarakat', icon: 'peoples', noCache: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/data-pemilih',
     component: Layout,
@@ -161,15 +161,15 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/data-desa',
+    path: '/data-daerah',
     component: Layout,
-    redirect: '/data-desa/index',
+    redirect: '/data-daerah/index',
     children: [
       {
         path: 'index',
-        component: () => import('@/views/table/data-table/desa'),
-        name: 'Data Desa',
-        meta: { title: 'Data Desa', icon: 'international', noCache: true }
+        component: () => import('@/views/table/data-table/daerah'),
+        name: 'Data Daerah',
+        meta: { title: 'Data Daerah', icon: 'international', noCache: true }
       }
     ]
   },

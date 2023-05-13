@@ -52,21 +52,20 @@ export default {
         legend: {
           left: 'center',
           bottom: '10',
-          data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
+          data: ['Kandidat A', 'Kandidat B', 'Kandidat C', 'Kandidat D']
         },
         series: [
           {
-            name: 'WEEKLY WRITE ARTICLES',
+            name: 'JUMLAH PENDUKUNG',
             type: 'pie',
             roseType: 'radius',
             radius: [15, 95],
             center: ['50%', '38%'],
             data: [
-              { value: 320, name: 'Industries' },
-              { value: 240, name: 'Technology' },
-              { value: 149, name: 'Forex' },
-              { value: 100, name: 'Gold' },
-              { value: 59, name: 'Forecasts' }
+              { value: 320, name: 'Kandidat A' },
+              { value: 240, name: 'Kandidat B' },
+              { value: 149, name: 'Kandidat C' },
+              { value: 100, name: 'Kandidat D' },
             ],
             animationEasing: 'cubicInOut',
             animationDuration: 2600

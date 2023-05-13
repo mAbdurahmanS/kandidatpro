@@ -13,17 +13,66 @@
         <div class="chart-wrapper">
           <raddar-chart />
         </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <pie-chart />
-        </div>
       </el-col> -->
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <bar-chart />
+          <div class="chart-wrapper-title">Kecamatan 1</div>
+          <pie-chart />
         </div>
       </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 2</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 3</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 4</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 5</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 6</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 7</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 8</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <div class="chart-wrapper-title">Kecamatan 9</div>
+          <pie-chart />
+        </div>
+      </el-col>
+      <!-- <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <bar-chart />
+        </div>
+      </el-col> -->
     </el-row>
 
     <!-- <el-row :gutter="8">
@@ -121,6 +170,12 @@ export default {
     background: #fff;
     padding: 16px 16px 0;
     margin-bottom: 32px;
+  }
+
+  .chart-wrapper-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
   }
 }
 

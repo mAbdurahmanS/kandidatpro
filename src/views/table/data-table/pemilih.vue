@@ -53,16 +53,23 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Coblos" min-width="150px" align="center">
+      <el-table-column label="Status" class-name="status-col" width="100">
         <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <span>{{ row.coblos }}</span>
+          <el-tag :type="row.status | statusFilter">
+            {{ row.status }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="Author" min-width="150px" align="center">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
           <span>{{ row.author }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Coblos" min-width="150px" align="center">
+        <template slot-scope="{row}">
+          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
+          <span>{{ row.coblos }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Nama" min-width="150px">

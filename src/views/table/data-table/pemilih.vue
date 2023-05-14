@@ -2,13 +2,16 @@
   <div class="app-container">
     <h1>Data Pemilih</h1>
     <div class="filter-container">
+      <el-select v-model="listQuery.importance" placeholder="Status" clearable style="width: 100px; margin-right: 10px;" class="filter-item">
+        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
+      </el-select>
       <el-input v-model="listQuery.title" placeholder="Nama" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.importance" placeholder="Author" clearable style="width: 200px; margin-right: 10px;" class="filter-item">
+      <el-select v-model="listQuery.importance" placeholder="Relawan" clearable style="width: 200px; margin-right: 10px;" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.importance" placeholder="Coblos" clearable style="width: 200px; margin-right: 10px;" class="filter-item">
+      <!-- <el-select v-model="listQuery.importance" placeholder="Coblos" clearable style="width: 200px; margin-right: 10px;" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
+      </el-select> -->
       <el-input v-model="listQuery.title" placeholder="Desa" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.title" placeholder="Kelurahan" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-input v-model="listQuery.title" placeholder="Kabupaten" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
@@ -60,18 +63,18 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="Author" min-width="150px" align="center">
+      <el-table-column label="Relawan" min-width="150px" align="center">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <span>{{ row.author }}</span>
+          <span>{{ row.relawan }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Coblos" min-width="150px" align="center">
+      <!-- <el-table-column label="Coblos" min-width="150px" align="center">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
           <span>{{ row.coblos }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="Nama" min-width="150px">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
@@ -109,34 +112,16 @@
           <span>{{ row.rw }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Imp" width="80px">
-        <template slot-scope="{row}">
-          <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />
-        </template>
-      </el-table-column>
-      <el-table-column label="Readings" align="center" width="95">
-        <template slot-scope="{row}">
-          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.pageviews }}</span>
-          <span v-else>0</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Status" class-name="status-col" width="100">
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
-          </el-tag>
-        </template>
-      </el-table-column> -->
       <el-table-column label="Actions" align="center" width="300" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
           </el-button>
-          <!-- <el-button v-if="row.status!='published'" size="mini" type="success" @click="handleModifyStatus(row,'published')">
-            Publish
-          </el-button> -->
-          <el-button v-if="row.status!='draft'" size="mini" @click="handleModifyStatus(row,'draft')">
-            View
+          <el-button v-if="row.status!='diterima'" size="mini" type="success" @click="handleModifyStatus(row,'diterima')">
+            diterima
+          </el-button>
+          <el-button v-if="row.status!='ditolak'" size="mini" @click="handleModifyStatus(row,'ditolak')">
+            ditolak
           </el-button>
           <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
             Delete
@@ -199,7 +184,7 @@ import { fetchPv, createArticle, updateArticle } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { kecamatan, kabupaten, desa, rw, rt, nama, no_telpon } from '../../../../data.js'
+import { kecamatan, kabupaten, desa, rw, rt, nama, no_telpon, relawan, coblos } from '../../../../data.js'
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -221,8 +206,9 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
+        diterima: 'success',
+        mengunggu: 'warning',
+        ditolak: 'danger',
         deleted: 'danger'
       }
       return statusMap[status]
@@ -248,7 +234,7 @@ export default {
       importanceOptions: [1, 2, 3],
       calendarTypeOptions,
       sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],
-      statusOptions: ['published', 'draft', 'deleted'],
+      statusOptions: ['diterima', 'menunggu', 'ditolak', 'deleted'],
       showReviewer: false,
       temp: {
         id: undefined,
@@ -257,7 +243,7 @@ export default {
         timestamp: new Date(),
         title: '',
         type: '',
-        status: 'published'
+        status: 'actived'
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -281,7 +267,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      const arr = Array(6).fill().map((_, i) => ({ id: i + 1, kabupaten: kabupaten[i], kecamatan: kecamatan[i], desa: desa[i], rw: rw[i], rt: rt[i], nama: nama[i], no_telpon: no_telpon[i] }))
+      const arr = Array(6).fill().map((_, i) => ({ id: i + 1, kabupaten: kabupaten[i], kecamatan: kecamatan[i], desa: desa[i], rw: rw[i], rt: rt[i], nama: nama[i], no_telpon: no_telpon[i], relawan: relawan[i], coblos: coblos[i] }))
       this.list = arr
       this.total = 6
 
@@ -329,7 +315,7 @@ export default {
         remark: '',
         timestamp: new Date(),
         title: '',
-        status: 'published',
+        status: 'actived',
         type: ''
       }
     },

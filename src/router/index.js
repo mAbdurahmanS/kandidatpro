@@ -121,19 +121,19 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/whatsapp-messages',
-    component: Layout,
-    redirect: '/whatsapp-messages/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/guide/index'),
-        name: 'Whatsapp Messages',
-        meta: { title: 'Whatsapp Messages', icon: 'guide', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/whatsapp-messages',
+  //   component: Layout,
+  //   redirect: '/whatsapp-messages/index',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/guide/index'),
+  //       name: 'Whatsapp Messages',
+  //       meta: { title: 'Whatsapp Messages', icon: 'guide', noCache: true }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/data-masyarakat',
   //   component: Layout,

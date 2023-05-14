@@ -52,7 +52,11 @@ export default {
         legend: {
           left: 'center',
           bottom: '10',
-          data: ['Kandidat A', 'Kandidat B', 'Kandidat C', 'Kandidat D']
+          data: ['Kandidat A',
+                'Target',
+                // 'Kandidat C',
+                // 'Kandidat D'
+              ]
         },
         series: [
           {
@@ -62,10 +66,10 @@ export default {
             radius: [15, 95],
             center: ['50%', '38%'],
             data: [
-              { value: 320, name: 'Kandidat A' },
-              { value: 240, name: 'Kandidat B' },
-              { value: 149, name: 'Kandidat C' },
-              { value: 100, name: 'Kandidat D' },
+              { value: 300, name: 'Kandidat A' },
+              { value: 200, name: 'Target' },
+              // { value: 149, name: 'Kandidat C' },
+              // { value: 100, name: 'Kandidat D' },
             ],
             animationEasing: 'cubicInOut',
             animationDuration: 2600

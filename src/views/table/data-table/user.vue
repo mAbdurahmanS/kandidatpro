@@ -2,15 +2,13 @@
   <div class="app-container">
     <h1>Data User</h1>
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="Title" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.importance" placeholder="Imp" clearable style="width: 90px" class="filter-item">
+      <el-input v-model="listQuery.title" placeholder="Nama" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.title" placeholder="Username" style="width: 200px; margin-right: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.importance" placeholder="Role" clearable style="width: 90px; margin-right: 10px;" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
+      <el-select v-model="listQuery.type" placeholder="Wilayah" clearable class="filter-item" style="width: 130px; margin-right: 10px;">
         <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-      </el-select>
-      <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         Search
@@ -21,9 +19,6 @@
       <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
         Export
       </el-button>
-      <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left:15px;" @change="tableKey=tableKey+1">
-        reviewer
-      </el-checkbox>
     </div>
 
     <el-table
@@ -41,19 +36,35 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Name" width="150px" align="center">
+      <el-table-column label="Role" width="100px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
+          <span>{{ row.role }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Wilayah" width="120px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.wilayah }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Username" min-width="150px">
         <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
+          <span>{{ row.username }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Level" width="110px" align="center">
+      <el-table-column label="Nama" width="150px">
         <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
+          <span>{{ row.nama }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="No Telpon" width="110px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.no_telpon }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Alamat" width="110px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.alamat }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Status" class-name="status-col" width="100">
@@ -63,7 +74,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column label="Actions" align="center" width="300" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
@@ -134,6 +145,7 @@ import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { role, wilayah, username, nama, no_telpon, alamat } from '../../../../data.js'
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -215,15 +227,21 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+      const arr = Array(6).fill().map((_, i) => ({ id: i + 1, wilayah: wilayah[i], role: role[i], username: username[i], nama: nama[i], no_telpon: no_telpon[i], alamat: alamat[i] }))
+      this.list = arr
+      this.total = 6
 
-        // Just to simulate the time of the request
+      console.log(this.list, arr)
+
+      // fetchList(this.listQuery).then(response => {
+      //   this.list = response.data.items
+      //   this.total = response.data.total
+
+      // Just to simulate the time of the request
+      // })
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
-      })
     },
     handleFilter() {
       this.listQuery.page = 1

@@ -61,10 +61,17 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
       this.setOptions(this.chartData)
     },
-    setOptions({ kandidatA, kandidatB, kandidatC, kandidatD } = {}) {
+    setOptions({ kandidatA, target, kandidatC, kandidatD } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: ['Kota Cirebon',
+                  'Kab. Cirebon',
+                  'Kab. Indramayu',
+                  // 'Thu',
+                  // 'Fri',
+                  // 'Sat',
+                  // 'Sun'
+                ],
           boundaryGap: false,
           axisTick: {
             show: false
@@ -90,7 +97,7 @@ export default {
           }
         },
         legend: {
-          data: ['Kandidat A', 'Kandidat B', 'Kandidat C', 'Kandidat D']
+          data: ['Kandidat A', 'Target']
         },
         series: [
           {
@@ -110,7 +117,7 @@ export default {
             animationEasing: 'cubicInOut'
           },
           {
-            name: 'Kandidat B',
+            name: 'Target',
             smooth: true,
             type: 'line',
             itemStyle: {
@@ -122,44 +129,44 @@ export default {
                 }
               }
             },
-            data: kandidatB,
+            data: target,
             animationDuration: 2800,
             animationEasing: 'quadraticOut'
           },
-          {
-            name: 'Kandidat C',
-            smooth: true,
-            type: 'line',
-            itemStyle: {
-              normal: {
-                color: '#f4516c',
-                lineStyle: {
-                  color: '#f4516c',
-                  width: 2
-                }
-              }
-            },
-            data: kandidatC,
-            animationDuration: 2800,
-            animationEasing: 'quadraticOut'
-          },
-          {
-            name: 'Kandidat D',
-            smooth: true,
-            type: 'line',
-            itemStyle: {
-              normal: {
-                color: '#34bfa3',
-                lineStyle: {
-                  color: '#34bfa3',
-                  width: 2
-                }
-              }
-            },
-            data: kandidatD,
-            animationDuration: 2800,
-            animationEasing: 'quadraticOut'
-          }
+          // {
+          //   name: 'Kandidat C',
+          //   smooth: true,
+          //   type: 'line',
+          //   itemStyle: {
+          //     normal: {
+          //       color: '#f4516c',
+          //       lineStyle: {
+          //         color: '#f4516c',
+          //         width: 2
+          //       }
+          //     }
+          //   },
+          //   data: kandidatC,
+          //   animationDuration: 2800,
+          //   animationEasing: 'quadraticOut'
+          // },
+          // {
+          //   name: 'Kandidat D',
+          //   smooth: true,
+          //   type: 'line',
+          //   itemStyle: {
+          //     normal: {
+          //       color: '#34bfa3',
+          //       lineStyle: {
+          //         color: '#34bfa3',
+          //         width: 2
+          //       }
+          //     }
+          //   },
+          //   data: kandidatD,
+          //   animationDuration: 2800,
+          //   animationEasing: 'quadraticOut'
+          // }
         ]
       })
     }

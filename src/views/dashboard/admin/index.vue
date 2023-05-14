@@ -101,30 +101,30 @@ import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
 const lineChartData = {
-  newVisitis: {
-    kandidatA: [100, 120, 161, 134, 105, 160, 165],
-    kandidatB: [120, 82, 91, 154, 162, 140, 145],
-    kandidatC: [150, 92, 101, 124, 172, 180, 165],
-    kandidatD: [90, 52, 61, 174, 183, 135, 195]
+  kandidatA: {
+    kandidatA: [100, 120, 80],
+    target: [80, 20, 100],
+    // kandidatC: [150, 92, 101, 124, 172, 180, 165],
+    // kandidatD: [90, 52, 61, 174, 183, 135, 195]
   },
   messages: {
-    kandidatA: [200, 192, 120, 144, 160, 130, 140],
-    kandidatB: [180, 160, 151, 106, 145, 150, 130],
-    kandidatC: [132, 130, 111, 36, 185, 142, 129],
-    kandidatD: [80, 50, 51, 96, 45, 80, 40]
+    kandidatA: [100, 120, 80],
+    target: [80, 20, 100],
+    // kandidatC: [150, 92, 101, 124, 172, 180, 165],
+    // kandidatD: [90, 52, 61, 174, 183, 135, 195]
   },
-  purchases: {
-    kandidatA: [80, 100, 121, 104, 105, 90, 100],
-    kandidatB: [120, 90, 100, 138, 142, 130, 130],
-    kandidatC: [182, 280, 121, 106, 195, 120, 130],
-    kandidatD: [320, 30, 182, 132, 161, 108, 170]
-  },
-  shoppings: {
-    kandidatA: [130, 140, 141, 142, 145, 150, 160],
-    kandidatB: [120, 82, 91, 154, 162, 140, 130],
-    kandidatC: [129, 130, 123, 176, 195, 192, 121],
-    kandidatD: [181, 172, 111, 182, 168, 119, 120]
-  }
+  // purchases: {
+  //   kandidatA: [80, 100, 121, 104, 105, 90, 100],
+  //   target: [120, 90, 100, 138, 142, 130, 130],
+  //   kandidatC: [182, 280, 121, 106, 195, 120, 130],
+  //   kandidatD: [320, 30, 182, 132, 161, 108, 170]
+  // },
+  // shoppings: {
+  //   kandidatA: [130, 140, 141, 142, 145, 150, 160],
+  //   target: [120, 82, 91, 154, 162, 140, 130],
+  //   kandidatC: [129, 130, 123, 176, 195, 192, 121],
+  //   kandidatD: [181, 172, 111, 182, 168, 119, 120]
+  // }
 }
 
 export default {
@@ -142,7 +142,7 @@ export default {
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
+      lineChartData: lineChartData.kandidatA
     }
   },
   methods: {

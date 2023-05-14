@@ -62,6 +62,15 @@ export const nama = [
   "Faza"
 ]
 
+export const username = [
+  "Muhammad",
+  "Abdurahman",
+  "Salsabil",
+  "Zaky",
+  "Fawwaz",
+  "Faza"
+]
+
 export const no_telpon = [
   "85155426763",
   "85155426763",
@@ -69,5 +78,50 @@ export const no_telpon = [
   "85155426763",
   "85155426763",
   "85155426763"
+]
+
+export const relawan = [
+  "Muhammad",
+  "Ali",
+  "Abdurahman",
+  "Zaky",
+  "Fawwaz",
+  "Faza"
+]
+
+export const coblos = [
+  "Kandidat A",
+  "Kandidat B",
+  "Kandidat C",
+  "Kandidat D",
+  "Kandidat C",
+  "Kandidat D",
+]
+
+export const role = [
+  "Super Admin",
+  "Admin",
+  "Co Admin",
+  "User",
+  "User",
+  "User",
+]
+
+export const wilayah = [
+  "Desa Tuk",
+  "Kec. Kedawung",
+  "Kec. Gegesik",
+  "Kec. Gegesik",
+  "Kec. Gegesik",
+  "Kec. Harjamukti"
+]
+
+export const alamat = [
+  "Cirebon",
+  "Cirebon",
+  "Cirebon",
+  "Cirebon",
+  "Cirebon",
+  "Cirebon"
 ]
 

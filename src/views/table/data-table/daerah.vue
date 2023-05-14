@@ -60,11 +60,11 @@
           <span>{{ row.desa }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Jumlah Penduduk" width="150px" align="center" style="white-space: nowrap;">
+      <!-- <el-table-column label="Jumlah Penduduk" width="150px" align="center" style="white-space: nowrap;">
         <template slot-scope="{row}">
           <span>{{ row.jumlah_penduduk }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <!-- <el-table-column label="Imp" width="80px">
         <template slot-scope="{row}">
           <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />
